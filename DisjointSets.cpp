@@ -8,7 +8,7 @@
 //DBG_status : tested
 DisjointSets::DisjointSets(int size)
 {
-
+    this->unionSetsRankUsed=false;
     this->size = size;
     this->set = new int[this->size];
     for(int u=0; u < size;u++)
@@ -16,7 +16,10 @@ DisjointSets::DisjointSets(int size)
         //-1 where minus illustrate root
         this->set[u]= -1;
         //DBG printing.
-        cout <<" "<< this->set[u];
+        if (u == 0)
+            cout << this->set[u];
+        else
+            cout << " " << this->set[u];
     }
 
 
@@ -47,37 +50,90 @@ int DisjointSets::maxHeight() const
     int pathWalker=0; //walks until -1
     int indexWalker=0;
     int iteration=1;
-    do
+    if(this->unionSetsRankUsed)
     {
-        height=0;
-        while( this->set[pathWalker] != -1)
-        {
-               pathWalker= this->set[pathWalker];
-               height++;
-        }
-        //store only highest path
-        if(results < height)
-        {
-            results = height;
-        }
-        indexWalker++;
-        pathWalker= iteration;
-        iteration++;
+        do {
+            height = 0;
+            while (this->set[pathWalker] > -1)
+            {
+                pathWalker = this->set[pathWalker];
+            }
+            //store only highest path
+            if (this->set[pathWalker] < -1)
+            {
+                height = abs(this->set[pathWalker]) -1;
+            }
+            indexWalker++;
+            pathWalker = iteration;
+            iteration++;
 
-    }while (indexWalker < this->size);
+        } while (indexWalker < this->size);
+    }
+    else
+    {
+        do
+        {
+            height = 0;
+            while (this->set[pathWalker] != -1) {
+                pathWalker = this->set[pathWalker];
+                height++;
+            }
+            //store only highest path
+            if (results < height) {
+                results = height;
+            }
+            indexWalker++;
+            pathWalker = iteration;
+            iteration++;
+
+        } while (indexWalker < this->size);
+    }
     return results;
 
 }
-//check all sets at every index and returns longest path
-//DBG_status : combine roots from different
+//merge sets
+//DBG_status : works
 void DisjointSets::unionSets(int root1, int root2)
 {
-    this->set[root2]=root1; //root1 becomes root for root2
-    //DBG printing.
-    for(int u=0; u < size;u++)
+    if(!this->unionSetsRankUsed)
     {
-
-        cout <<" "<< this->set[u];
+        if (find(root1) == find(root2) && find(root1) == -1 )
+        {
+            this->set[root2] = root1; //root1 becomes root for root2
+            //DBG printing.
+            for (int u = 0; u < size; u++)
+            {
+                if (u == 0)
+                    cout << this->set[u];
+                else
+                    cout << " " << this->set[u];
+            }
+        }
     }
-
+}
+// merge disjunctsets, however if one tree dose not have the same rank the height shall remain the same and the merge gets reversed.
+//DBG_status : works
+void DisjointSets::unionSetsRank(int root1, int root2)
+{
+    this->unionSetsRankUsed=true;
+    //check if ranks are equal
+    int a = this->set[root1];
+    int b = this->set[root2];
+    if(a == b)
+    {
+        this->set[root2] = root1; //root1 becomes root for root2
+        this->set[root1]--; //root becomes lower
+    }
+    else
+    {
+        this->set[root1] = root2; //root2 becomes root for root1 but the root doesn't increase height nor rank.
+    }
+    //DBG printing.
+    for (int u = 0; u < size; u++)
+    {
+        if (u == 0)
+            cout << this->set[u];
+        else
+            cout << " " << this->set[u];
+    }
 }

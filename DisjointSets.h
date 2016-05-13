@@ -8,6 +8,7 @@ class DisjointSets
 private:
 	int* set;
 	int size;
+	bool unionSetsRankUsed;
 public:
 	DisjointSets(int size);
 	DisjointSets(const DisjointSets &orig);
