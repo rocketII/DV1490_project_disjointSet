@@ -30,6 +30,11 @@ int main()
     cout<<"\n Height: "<< myObj.maxHeight();
     cout<<"\n content: \n";
     myObj.DBG_print();
+    cout<<" ";
+    cout<<"\n rest is junk"<<endl;
+    DisjointSets set1 = myObj;
+    DisjointSets copyObj(2), copyObj2(100);
+    copyObj = copyObj2 = set1;
     cout << "\nExiting!\n" << endl;
     return 0;
 }

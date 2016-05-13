@@ -179,3 +179,28 @@ int DisjointSets::findCompress(int x)
     }
 
 }
+
+DisjointSets::DisjointSets(const DisjointSets &orig)
+{
+    this->size = orig.size;
+    this->set = new int[this->size];
+    for (int i = 0; i < this->size ; ++i)
+    {
+        this->set[i] = orig.set[i];
+    }
+    this->unionSetsRankUsed = orig.unionSetsRankUsed;
+
+}
+
+DisjointSets &DisjointSets::operator=(const DisjointSets &orig)
+{
+    this->unionSetsRankUsed = orig.unionSetsRankUsed;
+    this->size = orig.size;
+    delete[] this->set;
+    this->set = new int[this->size];
+    for (int i = 0; i < this->size ; ++i)
+    {
+        this->set[i] = orig.set[i];
+    }
+    return *this;
+}
