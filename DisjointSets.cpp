@@ -61,7 +61,7 @@ int DisjointSets::maxHeight() const
             //store only highest path
             if (this->set[pathWalker] < -1)
             {
-                height = abs(this->set[pathWalker]) -1;
+                results = abs(this->set[pathWalker]) -1;
             }
             indexWalker++;
             pathWalker = iteration;
