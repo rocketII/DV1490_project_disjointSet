@@ -1,23 +1,28 @@
 //
 // Created by root on 2016-05-13.
 //
+#include <iostream>
 #include "DisjointSets.h"
-#include <random>
 
+// Create garbage and constructs one obj for caller
+//DBG_status : tested
 DisjointSets::DisjointSets(int size)
 {
-    srand(2);
+
     this->size = size;
     this->set = new int[this->size];
     for(int u=0; u < size;u++)
     {
         //-1 where minus illustrate root
         this->set[u]= -1;
+        //DBG printing.
+        cout <<" "<< this->set[u];
     }
 
 
 }
-
+//collect garbage
+//DBG_status : tested
 DisjointSets::~DisjointSets()
 {
     delete []  this->set;
@@ -34,7 +39,7 @@ int DisjointSets::find(int x) const
     return holder;
 }
 //check all sets at every index and returns longest path
-//DBG_status :
+//DBG_status : tested
 int DisjointSets::maxHeight() const
 {
     int height;
@@ -61,5 +66,18 @@ int DisjointSets::maxHeight() const
 
     }while (indexWalker < this->size);
     return results;
+
+}
+//check all sets at every index and returns longest path
+//DBG_status : combine roots from different
+void DisjointSets::unionSets(int root1, int root2)
+{
+    this->set[root2]=root1; //root1 becomes root for root2
+    //DBG printing.
+    for(int u=0; u < size;u++)
+    {
+
+        cout <<" "<< this->set[u];
+    }
 
 }
