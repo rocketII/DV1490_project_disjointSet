@@ -17,7 +17,7 @@ DisjointSets::DisjointSets(int size)
         this->set[u]= -1;
 
     }
-    DBG_print();
+
 
 }
 //collect garbage
@@ -98,7 +98,7 @@ void DisjointSets::unionSets(int root1, int root2)
             this->set[root2] = root1; //root1 becomes root for root2
 
         }
-        DBG_print();
+
     }
 
 }
@@ -119,7 +119,7 @@ void DisjointSets::unionSetsRank(int root1, int root2)
     {
         this->set[root1] = root2; //root2 becomes root for root1 but the root doesn't increase height nor rank.
     }
-    DBG_print();
+
 }
 //find root for node and if necesery rearrange, but don't work on ranks
 //DBG_status : tested
@@ -179,7 +179,8 @@ int DisjointSets::findCompress(int x)
     }
 
 }
-
+//CopyConstructor
+//DBG_status : tested
 DisjointSets::DisjointSets(const DisjointSets &orig)
 {
     this->size = orig.size;
@@ -191,7 +192,8 @@ DisjointSets::DisjointSets(const DisjointSets &orig)
     this->unionSetsRankUsed = orig.unionSetsRankUsed;
 
 }
-
+//operator=
+//DBG_status : tested
 DisjointSets &DisjointSets::operator=(const DisjointSets &orig)
 {
     this->unionSetsRankUsed = orig.unionSetsRankUsed;

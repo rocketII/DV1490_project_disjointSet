@@ -19,17 +19,7 @@ public:
 	void unionSets(int root1, int root2);
 	void unionSetsRank(int root1, int root2);
 	int maxHeight() const;
-	void DBG_print()
-	{
-		//DBG printing.
-		for (int u = 0; u < this->size; u++)
-		{
-			if (u == 0)
-				cout << this->set[u];
-			else
-				cout << " " << this->set[u];
-		}
-	}
+
 };
 
 #endif
