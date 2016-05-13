@@ -15,9 +15,9 @@ DisjointSets::DisjointSets(int size)
     {
         //-1 where minus illustrate root
         this->set[u]= -1;
-        DBG_print();
-    }
 
+    }
+    DBG_print();
 
 }
 //collect garbage
@@ -93,12 +93,14 @@ void DisjointSets::unionSets(int root1, int root2)
 {
     if(!this->unionSetsRankUsed)
     {
-        if (find(root1) == find(root2) && find(root1) == -1 )
+        if (find(root1) != find(root2) )
         {
             this->set[root2] = root1; //root1 becomes root for root2
-            DBG_print();
+
         }
+        DBG_print();
     }
+
 }
 // merge disjunctsets, however if one tree dose not have the same rank the height shall remain the same and the merge gets reversed.
 //DBG_status : works
@@ -120,7 +122,7 @@ void DisjointSets::unionSetsRank(int root1, int root2)
     DBG_print();
 }
 //find root for node and if necesery rearrange, but don't work on ranks
-//DBG_status : tested with unionRank mode,
+//DBG_status : tested
 int DisjointSets::findCompress(int x)
 {
     int holder = x; //reminds me of pointer :-)
@@ -166,12 +168,12 @@ int DisjointSets::findCompress(int x)
         }
         //compress
         int BranchWalker = x;
-        int tmp = -3;
+        int tmp = BranchWalker;
         while (this->set[BranchWalker] != -1)
         {
-            tmp = this->set[BranchWalker];
-            BranchWalker = tmp;
+            BranchWalker = this->set[tmp];
             this->set[tmp] = holder;
+            tmp = BranchWalker;
         }
         return holder;
     }

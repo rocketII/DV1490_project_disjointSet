@@ -22,7 +22,7 @@ public:
 	void DBG_print()
 	{
 		//DBG printing.
-		for (int u = 0; u < size; u++)
+		for (int u = 0; u < this->size; u++)
 		{
 			if (u == 0)
 				cout << this->set[u];
