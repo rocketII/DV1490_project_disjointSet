@@ -15,11 +15,7 @@ DisjointSets::DisjointSets(int size)
     {
         //-1 where minus illustrate root
         this->set[u]= -1;
-        //DBG printing.
-        if (u == 0)
-            cout << this->set[u];
-        else
-            cout << " " << this->set[u];
+        DBG_print();
     }
 
 
@@ -41,7 +37,7 @@ int DisjointSets::find(int x) const
     }
     return holder;
 }
-//check all sets at every index and returns longest path
+//check all sets at every index and returns longest path, works with Rank system.
 //DBG_status : tested
 int DisjointSets::maxHeight() const
 {
@@ -100,14 +96,7 @@ void DisjointSets::unionSets(int root1, int root2)
         if (find(root1) == find(root2) && find(root1) == -1 )
         {
             this->set[root2] = root1; //root1 becomes root for root2
-            //DBG printing.
-            for (int u = 0; u < size; u++)
-            {
-                if (u == 0)
-                    cout << this->set[u];
-                else
-                    cout << " " << this->set[u];
-            }
+            DBG_print();
         }
     }
 }
@@ -128,12 +117,63 @@ void DisjointSets::unionSetsRank(int root1, int root2)
     {
         this->set[root1] = root2; //root2 becomes root for root1 but the root doesn't increase height nor rank.
     }
-    //DBG printing.
-    for (int u = 0; u < size; u++)
+    DBG_print();
+}
+//find root for node and if necesery rearrange, but don't work on ranks
+//DBG_status : tested with unionRank mode,
+int DisjointSets::findCompress(int x)
+{
+    int holder = x; //reminds me of pointer :-)
+    int numberOfRedirects=0;
+    if(this->unionSetsRankUsed)
     {
-        if (u == 0)
-            cout << this->set[u];
-        else
-            cout << " " << this->set[u];
+        int tmp = holder;
+        //find a root with some negative integer
+
+        while (this->set[holder] > -1)
+        {
+            holder = this->set[holder];
+        }
+        //compress
+        int BranchWalker= tmp;
+
+        while (this->set[BranchWalker] > -1)
+        {
+            if( this->set[BranchWalker] != holder)
+            {
+                BranchWalker = this->set[tmp];
+                this->set[tmp] = holder;
+                numberOfRedirects++;
+                tmp = BranchWalker;
+            }
+            else
+                BranchWalker = this->set[tmp];//in the node before root we don't do any changes
+        }
+        //make root rank correct for each level decrement.
+        for (int t = 0; t < numberOfRedirects;t++)
+        {
+            this->set[holder]++;
+        }
+        return holder;
     }
+    else
+    {
+        //find root
+
+        while (this->set[holder] != -1)
+        {
+            holder = this->set[holder];
+        }
+        //compress
+        int BranchWalker = x;
+        int tmp = -3;
+        while (this->set[BranchWalker] != -1)
+        {
+            tmp = this->set[BranchWalker];
+            BranchWalker = tmp;
+            this->set[tmp] = holder;
+        }
+        return holder;
+    }
+
 }
