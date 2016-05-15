@@ -45,13 +45,13 @@ int main()
      *
      */
     int a1=220,a2=220,b1=220,b2=220,c1=220,c2=220,d1=220,d2=220; //dbg symbols
-    const int sets = 10;
+    const int sets = 4; //default 10000;
     float average1=0,average2=0, average3=0, average4=0;
     int randomRootCandidateHolderA, randomRootCandidateHolderB;
     std::srand(std::time(0));
     bool flag =false;
     DisjointSets testing1(sets), testing2(sets),testing3(sets),testing4(sets);
-    for (int j = 0; j < 100; ++j) //loop test 100 times
+    for (int j = 0; j < 1; ++j) //loop test 100 times
     {
         for (int i = 0; i < (sets/2) ; ++i) // loop set generator
         {
@@ -62,6 +62,7 @@ int main()
             bool d = (d1 == d2);
             ;
             // end dbg
+            //random number in range makes root kandidates
             randomRootCandidateHolderA = rand() % sets;
             randomRootCandidateHolderB = rand() % sets;//counter=0;
             a1 = testing1.find(randomRootCandidateHolderA);
@@ -74,8 +75,8 @@ int main()
             d2=testing4.findCompress(randomRootCandidateHolderB);
 
 
-
-            while (((a1 == a2) || (b1 == b2) || (c1 == c2) ||(d1==d2) ))
+            //compare random roots until none are same.
+            while ((((a1 == a2) || (b1 == b2)) || ((c1 == c2) ||(d1==d2)) ))
             {
                 //dbg
                 a = (a1 == a2);
@@ -86,28 +87,26 @@ int main()
 
                 randomRootCandidateHolderA = rand() % sets;
                 randomRootCandidateHolderB = rand() % sets;
-                bool dbgDiff = (randomRootCandidateHolderA != randomRootCandidateHolderB);
-                if (randomRootCandidateHolderA != randomRootCandidateHolderB)
-                {
-                    a1 = testing1.find(randomRootCandidateHolderA);
-                    a2 = testing1.find(randomRootCandidateHolderB);
-                    b1 = testing2.findCompress(randomRootCandidateHolderA);
-                    b2 = testing2.findCompress(randomRootCandidateHolderB);
-                    c1 = testing3.find(randomRootCandidateHolderA);
-                    c2 = testing3.find(randomRootCandidateHolderB);
-                    d1 = testing4.findCompress(randomRootCandidateHolderA);
-                    d2 = testing4.findCompress(randomRootCandidateHolderB);
-                }
+
+                a1 = testing1.find(randomRootCandidateHolderA);
+                a2 = testing1.find(randomRootCandidateHolderB);
+                b1 = testing2.findCompress(randomRootCandidateHolderA);
+                b2 = testing2.findCompress(randomRootCandidateHolderB);
+                c1 = testing3.find(randomRootCandidateHolderA);
+                c2 = testing3.find(randomRootCandidateHolderB);
+                d1 = testing4.findCompress(randomRootCandidateHolderA);
+                d2 = testing4.findCompress(randomRootCandidateHolderB);
+
             }
-
-
+            //DBG
+            if(a1 == a2 || b1 == b2 || c1 == c2 || d1 == d2 )
+                cout <<"warning"<<endl;
+            //DBG end
             //make sure only roots from different trees are used below.
-            testing1.unionSets(randomRootCandidateHolderA, randomRootCandidateHolderB);
-            testing2.unionSets(randomRootCandidateHolderA, randomRootCandidateHolderB);
-            testing3.unionSetsRank(randomRootCandidateHolderA, randomRootCandidateHolderB);
-            testing4.unionSetsRank(randomRootCandidateHolderA, randomRootCandidateHolderB);
-
-
+            testing1.unionSets(a1, a2);
+            testing2.unionSets(b1, b2);
+            testing3.unionSetsRank(c1, c2);
+            testing4.unionSetsRank(d1, d2);
 
         }
         //collect 100 times
@@ -122,7 +121,7 @@ int main()
     average3=average3/100 + (int)average3 % 100;
     average4=average4/100 + (int)average4 % 100;
     cout<<"\n==========================&\\*Results*/&======================\n";
-    cout<<"          ||  Find utan Komprimering || Find med komprimering ||";
+    cout<<"       ||  Find utan Komprimering || Find med komprimering ||";
     cout<<"\n-------------------------------------------------------------";
     cout<<"\n union    ||  "<< average1  << "                       || "<<average2<<" ||";
     cout<<"\n-------------------------------------------------------------";

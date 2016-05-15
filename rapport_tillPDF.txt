@@ -1,3 +1,67 @@
+========================================================================================
+*********************************|  @   |###############################################
+========================================================================================
+
 DV1490  Student: R.L.B.
 
 ADT - Disjunkta mängder.
+
+===========================introduktion===================================================
+
+
+ADT- disjunkta mängder är en abstrakt datatyp som arbetar med disjunkta mängder så
+att det bildas en struktur i form av ett träd. Alla mängder har i start -1 som root indikator.
+För att optimera processen med heuristikerna "Compress" samt "Union by Rank".
+
+I den först nämnda letar man trädets root och på vägen länkar man varje nod på vägen upp
+direkt till root så blir nivån lägre. I den sist nämnda är rötterna negativt tal -1 som start
+dvs dess rank när två träd slåss ihopa med union ser vi till att trädet bara växer nivåer
+när rankskillnaden hos de två träden är lika. Om olika rank så trixar vi så att lägst rank
+går in i högst rank.
+
+===========================testresultaten=================================================
+
+ Då programmets loopingbugg ej är riktigt löst har jag inget att kommentera för tillfället.
+
+
+    (Kommentarer på testresultaten (punkt 2) där du reflekterar över hur heuristikerna
+     påverkar höjden på de träd som representerar mängderna.
+     Variera antalet unioner (behåll antalet mängder) och försök finna någon situation
+     där samtidig användning av båda heuristikerna ger en klar förbättring.)
+
+===========================Användningsområden=============================================
+
+ *****Labyrinter*****
+
+ I ett rutnät som utgångs punkt är varje ruta en egen mängd. Mägderna river en kant parvis
+ om de är olika mängder.ö
+
+ *****Boost Graph Library-- Incremental Connected Components*****
+
+ ADT- disjunkta mängder används i c++ bibliotekets funktion ökande kopplade komponenter.
+ Med andra ord en familj av klasser och funktioner. som tillsammans beräknar de kopplade
+ komponenterna i en oriktad graf. Där ADT:ns funktion "union find" används i situationen
+ med växande grafer. Information till komponenterna behöver uppdatras i rask takt.
+
+ (http://www.boost.org/doc/libs/1_61_0/libs/graph/doc/incremental_components.html)
+
+ *****Minimalt utspännande träd med Kruskals Algoritm*****
+
+ En oriktad graf med viktade kanter. Där man vill optimera så man tar den optimalavägen
+ med lägst kostnad. träd i en skog det denna adt sysslar med.
+
+
+  ===========================Tids Processen===============================================
+  HÄNDELSE                    TID
+  ----------------------------------------------------
+  |Föreläsning                ~20 min                |
+  |Bokinläsning               ~30 min                |
+  |Laboration(design)         ~90 min                |
+  |Implementation             ~4  timmar             |
+  |testning                   ~18 timmar             |
+  |rapportskrivning           ~45 min                |
+  ----------------------------------------------------
+
+  ========================================================================================
+  *********************************|  @   |###############################################
+  ========================================================================================

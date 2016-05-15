@@ -89,7 +89,7 @@ int DisjointSets::maxHeight() const
     return results;
 
 }
-//merge sets
+//merge sets, only insert roots that are from diff. trees.
 //DBG_status : works
 void DisjointSets::unionSets(int root1, int root2)
 {
