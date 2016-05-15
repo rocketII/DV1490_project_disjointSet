@@ -31,7 +31,7 @@ DisjointSets::~DisjointSets()
 int DisjointSets::find(int x) const
 {
     int holder = x;
-    while(this->set[holder] != -1)
+    while(this->set[holder] != -1 && this->set[holder] > 0 )
     {
         holder = this->set[holder];
     }
@@ -54,10 +54,11 @@ int DisjointSets::maxHeight() const
             {
                 pathWalker = this->set[pathWalker];
             }
-            //store only highest path
+            //if root less than -1 we encode rank to height
             if (this->set[pathWalker] < -1)
             {
-                results = abs(this->set[pathWalker]) -1;
+                if(results < abs(this->set[pathWalker])-1 )
+                    results = abs(this->set[pathWalker]) -1;
             }
             indexWalker++;
             pathWalker = iteration;
@@ -70,7 +71,8 @@ int DisjointSets::maxHeight() const
         do
         {
             height = 0;
-            while (this->set[pathWalker] != -1) {
+            while (this->set[pathWalker] != -1)
+            {
                 pathWalker = this->set[pathWalker];
                 height++;
             }
@@ -93,31 +95,34 @@ void DisjointSets::unionSets(int root1, int root2)
 {
     if(!this->unionSetsRankUsed)
     {
-        if (find(root1) != find(root2) )
-        {
-            this->set[root2] = root1; //root1 becomes root for root2
-
-        }
-
+                    this->set[root2] = root1; //root1 becomes root for root2
     }
 
 }
 // merge disjunctsets, however if one tree dose not have the same rank the height shall remain the same and the merge gets reversed.
+// The following generate issues,  this->set[sameRoot] = sameRoot or/and  this->set[root] = number followed by this->set[number] = root;
 //DBG_status : works
 void DisjointSets::unionSetsRank(int root1, int root2)
 {
     this->unionSetsRankUsed=true;
     //check if ranks are equal
-    int a = this->set[root1];
-    int b = this->set[root2];
-    if(a == b)
+    int rankA = this->set[root1];
+    int rankB = this->set[root2];
+    if((rankA < 0) && (rankB < 0))
     {
-        this->set[root2] = root1; //root1 becomes root for root2
-        this->set[root1]--; //root becomes lower
-    }
-    else
-    {
-        this->set[root1] = root2; //root2 becomes root for root1 but the root doesn't increase height nor rank.
+        if (rankA == rankB)
+        {
+            this->set[root2] = root1; //root1 becomes root for root2
+            this->set[root1]--; //root becomes lower
+        }
+        else if(rankA > rankB)
+        {
+            this->set[root2] = root1; //root2 becomes root for root1 but the root doesn't increase height nor rank.
+        }
+        else if( rankA < rankB)
+        {
+            this->set[root1] = root2;
+        }
     }
 
 }
@@ -162,7 +167,7 @@ int DisjointSets::findCompress(int x)
     {
         //find root
 
-        while (this->set[holder] != -1)
+        while (this->set[holder] != -1 && this->set[holder] >0)
         {
             holder = this->set[holder];
         }
