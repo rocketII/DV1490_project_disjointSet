@@ -44,14 +44,16 @@ int main()
      *   F,S               F,D            G,S           G,D
      *
      */
-    int a1=220,a2=220,b1=220,b2=220,c1=220,c2=220,d1=220,d2=220; //dbg symbols
-    const int sets = 4; //default 10000;
+    int a1=220,a2=220,b1=220,b2=220,c1=220,c2=220,d1=220,d2=220; //dbg symbols holding roots
+    const int sets = 10000; //default 10000;
+    int nrOfTests = 100; //default 100
     float average1=0,average2=0, average3=0, average4=0;
     int randomRootCandidateHolderA, randomRootCandidateHolderB;
     std::srand(std::time(0));
-    bool flag =false;
     DisjointSets testing1(sets), testing2(sets),testing3(sets),testing4(sets);
-    for (int j = 0; j < 1; ++j) //loop test 100 times
+
+    //start testing.
+    for (int j = 0; j < nrOfTests; ++j) //loop test 100 times
     {
         for (int i = 0; i < (sets/2) ; ++i) // loop set generator
         {
@@ -60,7 +62,7 @@ int main()
             bool b = (b1 == b2);
             bool c = (c1 == c2);
             bool d = (d1 == d2);
-            ;
+
             // end dbg
             //random number in range makes root kandidates
             randomRootCandidateHolderA = rand() % sets;
@@ -100,7 +102,7 @@ int main()
             }
             //DBG
             if(a1 == a2 || b1 == b2 || c1 == c2 || d1 == d2 )
-                cout <<"warning"<<endl;
+                cout <<"warning!"<<endl;
             //DBG end
             //make sure only roots from different trees are used below.
             testing1.unionSets(a1, a2);
@@ -115,11 +117,11 @@ int main()
         average3+=testing3.maxHeight();
         average4+=testing4.maxHeight();
     }
-    //calc average height for all the tall trees in the forests.
-    average1=average1/100 + (int)average1 % 100;
-    average2=average2/100 + (int)average2 % 100;
-    average3=average3/100 + (int)average3 % 100;
-    average4=average4/100 + (int)average4 % 100;
+    //calc average height for all the tallest trees in the forests.
+    average1=average1/nrOfTests + (int)average1 % nrOfTests;
+    average2=average2/nrOfTests + (int)average2 % nrOfTests;
+    average3=average3/nrOfTests + (int)average3 % nrOfTests;
+    average4=average4/nrOfTests + (int)average4 % nrOfTests;
     cout<<"\n==========================&\\*Results*/&======================\n";
     cout<<"       ||  Find utan Komprimering || Find med komprimering ||";
     cout<<"\n-------------------------------------------------------------";

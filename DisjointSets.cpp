@@ -13,7 +13,7 @@ DisjointSets::DisjointSets(int size)
     this->set = new int[this->size];
     for(int u=0; u < size;u++)
     {
-        //-1 where minus illustrate root
+        //-1 where minus illustrate root.
         this->set[u]= -1;
 
     }
@@ -26,12 +26,14 @@ DisjointSets::~DisjointSets()
 {
     delete []  this->set;
 }
-//find root for value node in set.
-//DBG_status: works
+//find root for value node in set.handles ranked trees.
+//DBG_status: works, edited while loop 16/5.
 int DisjointSets::find(int x) const
 {
     int holder = x;
-    while(this->set[holder] != -1 && this->set[holder] > 0 )
+    //keep searching until negative value.
+    // trash: (this->set[holder] != -1 && this->set[holder] > -1 ). delete soon.
+    while(this->set[holder] > -1 )
     {
         holder = this->set[holder];
     }
@@ -89,21 +91,33 @@ int DisjointSets::maxHeight() const
     return results;
 
 }
-//merge sets, only insert roots that are from diff. trees.
+//merge sets, only insert roots that are from diff. trees otherwise looping branches are to be expected.
 //DBG_status : works
 void DisjointSets::unionSets(int root1, int root2)
 {
     if(!this->unionSetsRankUsed)
     {
-                    this->set[root2] = root1; //root1 becomes root for root2
+        //dbg
+        if(root1 == root2)
+        {
+            cout<<"Bad!"; getchar();
+        }
+        //dbg end remove
+        this->set[root2] = root1; //root1 becomes root for root2
     }
 
 }
-// merge disjunctsets, however if one tree dose not have the same rank the height shall remain the same and the merge gets reversed.
+// merge disjunctsets, however if one tree dose not have the same rank the height shall remain the same and the merge gets fixed so small rank join big rank.
 // The following generate issues,  this->set[sameRoot] = sameRoot or/and  this->set[root] = number followed by this->set[number] = root;
 //DBG_status : works
 void DisjointSets::unionSetsRank(int root1, int root2)
 {
+    //dbg
+    if(root1 == root2)
+    {
+        cout<<"Bad!"; getchar();
+    }
+    //dbg end remove
     this->unionSetsRankUsed=true;
     //check if ranks are equal
     int rankA = this->set[root1];
@@ -117,7 +131,7 @@ void DisjointSets::unionSetsRank(int root1, int root2)
         }
         else if(rankA > rankB)
         {
-            this->set[root2] = root1; //root2 becomes root for root1 but the root doesn't increase height nor rank.
+            this->set[root2] = root1;
         }
         else if( rankA < rankB)
         {
@@ -130,17 +144,19 @@ void DisjointSets::unionSetsRank(int root1, int root2)
 //DBG_status : tested
 int DisjointSets::findCompress(int x)
 {
-    int holder = x; //reminds me of pointer :-)
+    //x some node.
+    int holder = x; //reminds me of the pointer :-)
     int numberOfRedirects=0;
     if(this->unionSetsRankUsed)
     {
         int tmp = holder;
-        //find a root with some negative integer
 
+        //find a root with some negative integer
         while (this->set[holder] > -1)
         {
             holder = this->set[holder];
         }
+
         //compress
         int BranchWalker= tmp;
 
@@ -166,15 +182,15 @@ int DisjointSets::findCompress(int x)
     else
     {
         //find root
-
-        while (this->set[holder] != -1 && this->set[holder] >0)
+        // trash data: (this->set[holder] != -1 && this->set[holder] >0)
+        while (this->set[holder] > -1)
         {
             holder = this->set[holder];
         }
         //compress
         int BranchWalker = x;
         int tmp = BranchWalker;
-        while (this->set[BranchWalker] != -1)
+        while (this->set[BranchWalker] > -1)
         {
             BranchWalker = this->set[tmp];
             this->set[tmp] = holder;
@@ -190,7 +206,8 @@ DisjointSets::DisjointSets(const DisjointSets &orig)
 {
     this->size = orig.size;
     this->set = new int[this->size];
-    for (int i = 0; i < this->size ; ++i)
+    //or this->set = orig.set
+    for (int i = 0; i < this->size; ++i)
     {
         this->set[i] = orig.set[i];
     }
