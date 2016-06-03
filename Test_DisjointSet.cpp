@@ -30,6 +30,41 @@
         Kontrollera dessutom att du gör union på rötter i träden, dvs på resultaten vid find,
         dvs om du gör root1 = set.find(x) och root2 = set.find(y)
         där x och y är slumpade värden ska du göra union på root1 och root2 om de är olika.
+
+
+
+
+
+
+        ---------------------------------feedback2--------------------------------------------
+
+                                        DEADLINE 6 juni.
+
+================================================Rapport
+
+*     Vid beskrivning av ADT ska inter representation inte ”vara känd”, dvs i detta fall träd.
+      Find och union ska därför beskrivas utan inblandning av träd.
+
+*     I samband med testet behövs däremot en beskrivning av hur mängder kan representeras med
+      träd för att därefter gå in på de olika varianterna av find och union.
+
+*     Testet är inte ”ifyllt” eftersom programmet inte gett resultat.
+      Ändra enligt noteringarna under rubriken Program här nedanför
+      och tillse dessutom att ditt program fungerar i övrigt.
+
+*     Beskriv användningsområden lite fylligare
+
+=================================================Program
+fixcode    fixed      details
+0x11       0      Vid varje nytt test krävs ”nya” mängder, eftersom alla försök fortsätter på samma mängder ”hänger sig” programmet
+
+0x22      0       Behöver du kontrollera alla fyra mängderna avseende om två element är i disjunkta mängder eller ej?
+
+0x33      0       Kontrollera FindComlpress och maxheight dessa verkar onödigt omständliga
+
+
+                                        DEADLINE 6 juni.
+
  * */
 #include <iostream>
 #include "DisjointSets.h"
