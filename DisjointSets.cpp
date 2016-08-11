@@ -77,6 +77,7 @@ int DisjointSets::maxHeight() const
         iteration++;
 
     } while (indexWalker < this->size);
+    return results;
     /*if(this->unionSetsRankUsed)
     {
         do
@@ -119,7 +120,7 @@ int DisjointSets::maxHeight() const
 
         } while (indexWalker < this->size);
     }*/
-    return results;
+
 
 }
 //merge sets, only insert roots that are from diff.
