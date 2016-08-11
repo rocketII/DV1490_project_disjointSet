@@ -9,11 +9,20 @@ ADT - Disjunkta mängder.
 ===========================introduktion=========================================
 
 
-ADT- disjunkta mängder är en abstrakt datatyp som arbetar med disjunkta mängder så att det bildas en struktur i form träd i en skog. Alla mängder har i start -1 som root indikator. För att optimera processen med heuristikerna "Compress" samt "Union by Rank".
-
-I den först nämnda letar man trädets root och på vägen länkar man varje nod på vägen upp direkt till root så blir högsta nivån lägre. I den sist nämnda är rötterna negativa tal, -1 som start dvs dess rank. När två träd slåss ihopa med union ser vi till att trädet bara växer nivåer när rankskillnaden hos de två träden är lika. Om olika rank så trixar vi så att lägst rank går in i högst rank.
+ADT- disjunkta mängder är en abstrakt datatyp som arbetar med disjunkta mängder så
+att det bildas mängder som växer som mest log n (om man följer beskrivningen i läroboken).
+Alla mängder har i start -1 som root indikator och är endast ett element. För att optimera processen har man
+heuristikerna "Compress" samt "Union by Rank" (finns by-size också).I den först nämnda
+letar man efter mängdens rot, representant som håller koll på mängdens "nivåer" och
+på vägen länkar man varje nod på vägen upp direkt till root så blir högsta nivån lägre.
+I den sist nämnda är rötterna negativa tal, -1 som start dvs dess rank.
+ När två mängder slåss ihopa med union ser vi till att mängderna bara växer nivåer när rankskillnaden hos de två mängderna är lika. Om olika rank så trixar vi så att lägst rank går in i högst rank.
 
 ===========================testresultaten=======================================
+
+disjunkta mängder här görs så att det bildas en struktur i form träd i en skog. Alla mängder har i start -1 som root indikator. För att optimera processen med heuristikerna "Compress" samt "Union by Rank".
+
+I den först nämnda letar man trädets root och på vägen länkar man varje nod på vägen upp direkt till root så blir högsta nivån lägre. I den sist nämnda är rötterna negativa tal, -1 som start dvs dess rank. När två träd slåss ihopa med union ser vi till att trädet bara växer nivåer när rankskillnaden hos de två träden är lika. Om olika rank så trixar vi så att lägst rank går in i högst rank.
 
  Då programmets loopingbugg ej är riktigt löst har jag inget att kommentera för tillfället.
 
@@ -27,17 +36,25 @@ I den först nämnda letar man trädets root och på vägen länkar man varje no
 
  *****Labyrinter*****
 
- I ett rutnät som utgångs punkt är varje ruta en egen mängd. Mägderna river en kant parvis om de är olika mängder. När alla är en gemensam mängd är labyrinten klar.
+ I ett rutnät som utgångs punkt är varje ruta en egen mängd.
+ Mägderna river en kant parvis om de är olika mängder.
+ När alla är en gemensam mängd är labyrinten klar. Vi  bör förstås ha ingång och utgång vid start.
 
  *****Boost Graph Library-- Incremental Connected Components*****
 
- ADT- disjunkta mängder används i c++ bibliotekets funktion "ökande kopplade komponenter". Med andra ord en familj av klasser och funktioner. som tillsammans beräknar de kopplade komponenterna i en oriktad graf. Där ADT:ns funktion "union find" används i situationen med växande oriktade grafer. Information till komponenterna behöver uppdatras i rask takt.
+ ADT- disjunkta mängder används i c++ bibliotekets funktion "ökande kopplade komponenter".
+ Med andra ord en familj av klasser och funktioner.
+ som tillsammans beräknar de kopplade komponenterna i en oriktad graf.
+ Där ADT:ns funktion "union find" används i situationen med växande oriktade grafer.
+ Information till komponenterna behöver uppdateras i rask takt.
 
  (källa: http://www.boost.org/doc/libs/1_61_0/libs/graph/doc/incremental_components.html)
 
  *****Minimalt utspännande träd m.h.a. Kruskals Algoritm*****
 
- En oriktad graf med viktade kanter. Där man vill optimera så man tar de optimalavägarna med lägst kostnad. träd i en skog det denna adt sysslar med.
+ En oriktad graf med viktade kanter.
+ Där man vill optimera så man tar de optimalavägarna med lägst kostnad.
+ Träd i en skog det denna adt sysslar med.
 
 
 
@@ -51,7 +68,7 @@ I den först nämnda letar man trädets root och på vägen länkar man varje no
   |Laboration(design)         ~90 min                |
   |Implementation             ~4  timmar             |
   |testning                   ~18 timmar             |
-  |rapportskrivning           ~45 min                |
+  |rapportskrivning           ~55 min                |
   ----------------------------------------------------
 
   ================================================================================

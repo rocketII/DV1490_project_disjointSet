@@ -1,6 +1,7 @@
 //made by R.L.B.
 /*
  *
+ * ---------------------------------Instructions--------------------------------------------
         I en annan fil innehållande main-funktionen implementerar du testet. Här skapar du 4
 
         objekt av typen DisjointSets så att du har olika objekt för var och en av de kombinationer av
@@ -72,6 +73,7 @@ fixcode    fixed      details
 #include <ctime>
 using namespace std;
 
+//fixcode 0x22, 0x11
 int main()
 {
     /*  find = S findCompress=D  Union=F UnionRank=G
@@ -79,12 +81,12 @@ int main()
      *   F,S               F,D            G,S           G,D
      *
      */
-    int a1=220,a2=220,b1=220,b2=220,c1=220,c2=220,d1=220,d2=220; //dbg symbols holding roots
+    int a1=-1,a2=-1,b1=-1,b2=-1,c1=-1,c2=-1,d1=-1,d2=-1;
     const int sets = 10000; //default 10000;
     int nrOfTests = 100; //default 100
     float average1=0,average2=0, average3=0, average4=0;
     int randomRootCandidateHolderA, randomRootCandidateHolderB;
-    std::srand(std::time(0));
+    std::srand((unsigned)std::time(0));
     DisjointSets testing1(sets), testing2(sets),testing3(sets),testing4(sets);
 
     //start testing.
@@ -92,13 +94,7 @@ int main()
     {
         for (int i = 0; i < (sets/2) ; ++i) // loop set generator
         {
-            //dbg
-            bool a = (a1 == a2);
-            bool b = (b1 == b2);
-            bool c = (c1 == c2);
-            bool d = (d1 == d2);
 
-            // end dbg
             //random number in range makes root kandidates
             randomRootCandidateHolderA = rand() % sets;
             randomRootCandidateHolderB = rand() % sets;//counter=0;
@@ -112,16 +108,9 @@ int main()
             d2=testing4.findCompress(randomRootCandidateHolderB);
 
 
-            //compare random roots until none are same.
-            while ((((a1 == a2) || (b1 == b2)) || ((c1 == c2) ||(d1==d2)) ))
+            //compare random roots until none are the same.
+            while (a1 == a2 ) //  || (b1 == b2)) || ((c1 == c2) ||(d1==d2))
             {
-                //dbg
-                a = (a1 == a2);
-                b = (b1 == b2);
-                c = (c1 == c2);
-                d = (d1 == d2);
-                // end dbg
-
                 randomRootCandidateHolderA = rand() % sets;
                 randomRootCandidateHolderB = rand() % sets;
 
@@ -133,10 +122,13 @@ int main()
                 c2 = testing3.find(randomRootCandidateHolderB);
                 d1 = testing4.findCompress(randomRootCandidateHolderA);
                 d2 = testing4.findCompress(randomRootCandidateHolderB);
+               /*
+                || b1 == b2 || c1 == c2 || d1 == d2
+                */
 
             }
             //DBG
-            if(a1 == a2 || b1 == b2 || c1 == c2 || d1 == d2 )
+            if( a1 == a2 )
                 cout <<"warning!"<<endl;
             //DBG end
             //make sure only roots from different trees are used below.
@@ -146,6 +138,9 @@ int main()
             testing4.unionSetsRank(d1, d2);
 
         }
+
+
+
         //collect 100 times
         average1+=testing1.maxHeight();
         average2+=testing2.maxHeight();

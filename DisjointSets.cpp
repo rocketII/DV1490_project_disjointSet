@@ -30,17 +30,21 @@ DisjointSets::~DisjointSets()
 //DBG_status: works, edited while loop 16/5.
 int DisjointSets::find(int x) const
 {
-    int holder = x;
+    if( this->set[ x ] < 0 )
+        return x;
+    else
+        return find( this->set[ x ] );
+    //int holder = x;
     //keep searching until negative value.
     // trash: (this->set[holder] != -1 && this->set[holder] > -1 ). delete soon.
-    while(this->set[holder] > -1 )
+    /*while(this->set[holder] > -1 )
     {
         holder = this->set[holder];
     }
-    return holder;
+    return holder;*/
 }
 //check all sets at every index and returns longest path, works with Rank system.
-//DBG_status : tested
+//fixcode: 0x33
 int DisjointSets::maxHeight() const
 {
     int height;
@@ -50,7 +54,8 @@ int DisjointSets::maxHeight() const
     int iteration=1;
     if(this->unionSetsRankUsed)
     {
-        do {
+        do
+        {
             height = 0;
             while (this->set[pathWalker] > -1)
             {
@@ -59,8 +64,8 @@ int DisjointSets::maxHeight() const
             //if root less than -1 we encode rank to height
             if (this->set[pathWalker] < -1)
             {
-                if(results < abs(this->set[pathWalker])-1 )
-                    results = abs(this->set[pathWalker]) -1;
+                if(results < abs(this->set[pathWalker]) - 1 )
+                    results = abs(this->set[pathWalker]) - 1;
             }
             indexWalker++;
             pathWalker = iteration;
@@ -79,7 +84,8 @@ int DisjointSets::maxHeight() const
                 height++;
             }
             //store only highest path
-            if (results < height) {
+            if (results < height)
+            {
                 results = height;
             }
             indexWalker++;
@@ -141,11 +147,15 @@ void DisjointSets::unionSetsRank(int root1, int root2)
 
 }
 //find root for node and if necesery rearrange, but don't work on ranks
-//DBG_status : tested
+//fixcode: 0x33
 int DisjointSets::findCompress(int x)
 {
+    if( this->set[ x ] < 0 )
+        return x;
+    else
+        return this->set[ x ] = findCompress( this->set[ x ] );
     //x some node.
-    int holder = x; //reminds me of the pointer :-)
+    /*int holder = x; //reminds me of the pointer :-)
     int numberOfRedirects=0;
     if(this->unionSetsRankUsed)
     {
@@ -197,7 +207,7 @@ int DisjointSets::findCompress(int x)
             tmp = BranchWalker;
         }
         return holder;
-    }
+    }*/
 
 }
 //CopyConstructor
