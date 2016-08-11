@@ -62,7 +62,7 @@ int DisjointSets::maxHeight() const
     do
     {
         height = 0;
-        while (this->set[pathWalker] != -1)
+        while (this->set[pathWalker] > -1)
         {
             pathWalker = this->set[pathWalker];
             height++;
