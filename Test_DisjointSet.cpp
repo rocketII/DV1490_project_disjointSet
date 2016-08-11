@@ -91,11 +91,11 @@ int main()
     int nrOfTests = 100; //default 100
     float average1=0,average2=0, average3=0, average4=0;
     int randomRootCandidateHolderA, randomRootCandidateHolderB;
-    std::srand((unsigned)std::time(0));
+    std::srand((unsigned)std::time(NULL));
     DisjointSets testing1(sets), testing2(sets),testing3(sets),testing4(sets);
 
     //start testing.
-    for (int j = 0; j < 100; ++j) //loop test 100 times
+    for (int j = 0; j < nrOfTests; ++j) //loop test 100 times
     {
         for (int i = 0; i < (50) ; ++i) // loop set generator 50 times
         {
@@ -114,7 +114,7 @@ int main()
 
 
             //compare random roots until none are the same.
-            while (a1 == a2 ) //  || (b1 == b2)) || ((c1 == c2) ||(d1==d2))
+            while (a1 == a2 )
             {
                 randomRootCandidateHolderA = rand() % sets;
                 randomRootCandidateHolderB = rand() % sets;
@@ -127,9 +127,7 @@ int main()
                 c2 = testing3.find(randomRootCandidateHolderB);
                 d1 = testing4.findCompress(randomRootCandidateHolderA);
                 d2 = testing4.findCompress(randomRootCandidateHolderB);
-               /*
-                || b1 == b2 || c1 == c2 || d1 == d2
-                */
+
 
             }
             //DBG
