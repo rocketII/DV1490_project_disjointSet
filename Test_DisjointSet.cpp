@@ -57,11 +57,11 @@
 
 =================================================Program
 fixcode    fixed      details
-0x11       0      Vid varje nytt test krävs ”nya” mängder, eftersom alla försök fortsätter på samma mängder ”hänger sig” programmet
+0x11       1      Vid varje nytt test krävs ”nya” mängder, eftersom alla försök fortsätter på samma mängder ”hänger sig” programmet
 
-0x22      0       Behöver du kontrollera alla fyra mängderna avseende om två element är i disjunkta mängder eller ej?
+0x22      1       Behöver du kontrollera alla fyra mängderna avseende om två element är i disjunkta mängder eller ej?
 
-0x33      0       Kontrollera FindComlpress och maxheight dessa verkar onödigt omständliga
+0x33      1       Kontrollera FindComlpress och maxheight dessa verkar onödigt omständliga
 
 
                                         DEADLINE 6 juni.
