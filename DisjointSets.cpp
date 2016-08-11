@@ -34,14 +34,8 @@ int DisjointSets::find(int x) const
         return x;
     else
         return find( this->set[ x ] );
-    //int holder = x;
-    //keep searching until negative value.
-    // trash: (this->set[holder] != -1 && this->set[holder] > -1 ). delete soon.
-    /*while(this->set[holder] > -1 )
-    {
-        holder = this->set[holder];
-    }
-    return holder;*/
+
+
 }
 //check all sets at every index and returns longest path, works with Rank system.
 //fixcode: 0x44
@@ -78,6 +72,7 @@ int DisjointSets::maxHeight() const
 
     } while (indexWalker < this->size);
     return results;
+    //obsolete code below...
     /*if(this->unionSetsRankUsed)
     {
         do
