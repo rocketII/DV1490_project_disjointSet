@@ -61,7 +61,12 @@ fixcode    fixed      details
 
 0x22      1       Behöver du kontrollera alla fyra mängderna avseende om två element är i disjunkta mängder eller ej?
 
-0x33      1       Kontrollera FindComlpress och maxheight dessa verkar onödigt omständliga
+0x33      1       Kontrollera FindComlpress.
+
+0x44      0       maxheight verkar onödigt omständiga. För att bestämma max-höjden för de träd som representerar
+                  mängderna ska du för varje nod bestämma dess djup (dvs hur långt från roten den är) och den nod
+                  som har högst djup motsvarar det träd som är högst. Du ska inte använda de uppskattade
+                  höjderna/rankerna utan vekrligen kontrollera djupen för noderna.
 
 
                                         DEADLINE 6 juni.

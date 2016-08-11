@@ -44,7 +44,12 @@ int DisjointSets::find(int x) const
     return holder;*/
 }
 //check all sets at every index and returns longest path, works with Rank system.
-//fixcode: 0x33
+//fixcode: 0x44
+/* 0x44:       maxheight verkar onödigt omständiga. För att bestämma max-höjden för de träd som representerar
+               mängderna ska du för varje nod bestämma dess djup (dvs hur långt från roten den är) och den nod
+               som har högst djup motsvarar det träd som är högst. Du ska inte använda de uppskattade
+               höjderna/rankerna utan vekrligen kontrollera djupen för noderna.
+ */
 int DisjointSets::maxHeight() const
 {
     int height;
