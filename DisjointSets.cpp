@@ -64,8 +64,8 @@ int DisjointSets::maxHeight() const
             //if root less than -1 we encode rank to height
             if (this->set[pathWalker] < -1)
             {
-                if(results < abs(this->set[pathWalker]) - 1 )
-                    results = abs(this->set[pathWalker]) - 1;
+                if(results < (abs(this->set[pathWalker]) - 1) )
+                    results = (abs(this->set[pathWalker]) - 1);
             }
             indexWalker++;
             pathWalker = iteration;
@@ -97,18 +97,12 @@ int DisjointSets::maxHeight() const
     return results;
 
 }
-//merge sets, only insert roots that are from diff. trees otherwise looping branches are to be expected.
+//merge sets, only insert roots that are from diff.
 //DBG_status : works
 void DisjointSets::unionSets(int root1, int root2)
 {
     if(!this->unionSetsRankUsed)
     {
-        //dbg
-        if(root1 == root2)
-        {
-            cout<<"Bad!"; getchar();
-        }
-        //dbg end remove
         this->set[root2] = root1; //root1 becomes root for root2
     }
 
@@ -118,12 +112,6 @@ void DisjointSets::unionSets(int root1, int root2)
 //DBG_status : works
 void DisjointSets::unionSetsRank(int root1, int root2)
 {
-    //dbg
-    if(root1 == root2)
-    {
-        cout<<"Bad!"; getchar();
-    }
-    //dbg end remove
     this->unionSetsRankUsed=true;
     //check if ranks are equal
     int rankA = this->set[root1];
@@ -226,7 +214,7 @@ DisjointSets::DisjointSets(const DisjointSets &orig)
 }
 //operator=
 //DBG_status : tested
-DisjointSets &DisjointSets::operator=(const DisjointSets &orig)
+DisjointSets& DisjointSets::operator=(const DisjointSets &orig)
 {
     this->unionSetsRankUsed = orig.unionSetsRankUsed;
     this->size = orig.size;
@@ -236,5 +224,5 @@ DisjointSets &DisjointSets::operator=(const DisjointSets &orig)
     {
         this->set[i] = orig.set[i];
     }
-    return *this;
+    return *this;//return reference
 }

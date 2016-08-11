@@ -90,9 +90,9 @@ int main()
     DisjointSets testing1(sets), testing2(sets),testing3(sets),testing4(sets);
 
     //start testing.
-    for (int j = 0; j < nrOfTests; ++j) //loop test 100 times
+    for (int j = 0; j < 100; ++j) //loop test 100 times
     {
-        for (int i = 0; i < (sets/2) ; ++i) // loop set generator
+        for (int i = 0; i < (50) ; ++i) // loop set generator 50 times
         {
 
             //random number in range makes root kandidates
@@ -132,6 +132,7 @@ int main()
                 cout <<"warning!"<<endl;
             //DBG end
             //make sure only roots from different trees are used below.
+            //We get 100*50=5000 calls to unionSets and unionSetsRank
             testing1.unionSets(a1, a2);
             testing2.unionSets(b1, b2);
             testing3.unionSetsRank(c1, c2);
