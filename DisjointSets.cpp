@@ -57,7 +57,27 @@ int DisjointSets::maxHeight() const
     int pathWalker=0; //walks until -1
     int indexWalker=0;
     int iteration=1;
-    if(this->unionSetsRankUsed)
+    //index   0  1  2  3  4 5 6  7
+    //content 3 -1  1  2 -1 7 4  6
+    do
+    {
+        height = 0;
+        while (this->set[pathWalker] != -1)
+        {
+            pathWalker = this->set[pathWalker];
+            height++;
+        }
+        //store only highest path
+        if (results < height)
+        {
+            results = height;
+        }
+        indexWalker++;
+        pathWalker = iteration;
+        iteration++;
+
+    } while (indexWalker < this->size);
+    /*if(this->unionSetsRankUsed)
     {
         do
         {
@@ -98,7 +118,7 @@ int DisjointSets::maxHeight() const
             iteration++;
 
         } while (indexWalker < this->size);
-    }
+    }*/
     return results;
 
 }
