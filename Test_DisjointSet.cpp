@@ -82,7 +82,7 @@ using namespace std;
 int main()
 {
     /*  find = S findCompress=D  Union=F UnionRank=G
-     *  testing1(sets), testing2(sets),testing3(sets),testing4(sets);
+     *  testing1(sets), ptr[1](sets),testing3(sets),ptr[3](sets);
      *   F,S               F,D            G,S           G,D
      *
      */
@@ -92,25 +92,30 @@ int main()
     float average1=0,average2=0, average3=0, average4=0;
     int randomRootCandidateHolderA, randomRootCandidateHolderB;
     std::srand((unsigned)std::time(NULL));
-    DisjointSets testing1(sets), testing2(sets),testing3(sets),testing4(sets);
+    //DisjointSets testing1(sets), ptr[1](sets),testing3(sets),ptr[3](sets);
+    DisjointSets* ptr[4];
 
     //start testing.
     for (int j = 0; j < nrOfTests; ++j) //loop test 100 times
     {
-        for (int i = 0; i < (50) ; ++i) // loop set generator 50 times
+        for (int k = 0; k < 4 ; ++k)
+        {
+            ptr[k] = new DisjointSets(sets);
+        }
+        for (int i = 0; i < (5000) ; ++i) // loop set generator 50 times
         {
 
             //random number in range makes root kandidates
             randomRootCandidateHolderA = rand() % sets;
             randomRootCandidateHolderB = rand() % sets;//counter=0;
-            a1 = testing1.find(randomRootCandidateHolderA);
-            a2 = testing1.find(randomRootCandidateHolderB);
-            b1=testing2.findCompress(randomRootCandidateHolderA);
-            b2=testing2.findCompress(randomRootCandidateHolderB);
-            c1=testing3.find(randomRootCandidateHolderA);
-            c2=testing3.find(randomRootCandidateHolderB);
-            d1=testing4.findCompress(randomRootCandidateHolderA);
-            d2=testing4.findCompress(randomRootCandidateHolderB);
+            a1 = ptr[0]->find(randomRootCandidateHolderA);
+            a2 = ptr[0]->find(randomRootCandidateHolderB);
+            b1=ptr[1]->findCompress(randomRootCandidateHolderA);
+            b2=ptr[1]->findCompress(randomRootCandidateHolderB);
+            c1=ptr[2]->find(randomRootCandidateHolderA);
+            c2=ptr[2]->find(randomRootCandidateHolderB);
+            d1=ptr[3]->findCompress(randomRootCandidateHolderA);
+            d2=ptr[3]->findCompress(randomRootCandidateHolderB);
 
 
             //compare random roots until none are the same.
@@ -119,14 +124,14 @@ int main()
                 randomRootCandidateHolderA = rand() % sets;
                 randomRootCandidateHolderB = rand() % sets;
 
-                a1 = testing1.find(randomRootCandidateHolderA);
-                a2 = testing1.find(randomRootCandidateHolderB);
-                b1 = testing2.findCompress(randomRootCandidateHolderA);
-                b2 = testing2.findCompress(randomRootCandidateHolderB);
-                c1 = testing3.find(randomRootCandidateHolderA);
-                c2 = testing3.find(randomRootCandidateHolderB);
-                d1 = testing4.findCompress(randomRootCandidateHolderA);
-                d2 = testing4.findCompress(randomRootCandidateHolderB);
+                a1 = ptr[0]->find(randomRootCandidateHolderA);
+                a2 = ptr[0]->find(randomRootCandidateHolderB);
+                b1 = ptr[1]->findCompress(randomRootCandidateHolderA);
+                b2 = ptr[1]->findCompress(randomRootCandidateHolderB);
+                c1 = ptr[2]->find(randomRootCandidateHolderA);
+                c2 = ptr[2]->find(randomRootCandidateHolderB);
+                d1 = ptr[3]->findCompress(randomRootCandidateHolderA);
+                d2 = ptr[3]->findCompress(randomRootCandidateHolderB);
 
 
             }
@@ -136,20 +141,24 @@ int main()
             //DBG end
             //make sure only roots from different trees are used below.
             //We get 100*50=5000 calls to unionSets and unionSetsRank
-            testing1.unionSets(a1, a2);
-            testing2.unionSets(b1, b2);
-            testing3.unionSetsRank(c1, c2);
-            testing4.unionSetsRank(d1, d2);
+            ptr[0]->unionSets(a1, a2);
+            ptr[1]->unionSets(b1, b2);
+            ptr[2]->unionSetsRank(c1, c2);
+            ptr[3]->unionSetsRank(d1, d2);
 
         }
 
 
 
         //collect 100 times
-        average1+=testing1.maxHeight();
-        average2+=testing2.maxHeight();
-        average3+=testing3.maxHeight();
-        average4+=testing4.maxHeight();
+        average1+=ptr[0]->maxHeight();
+        average2+=ptr[1]->maxHeight();
+        average3+=ptr[2]->maxHeight();
+        average4+=ptr[3]->maxHeight();
+        for (int k = 0; k < 3 ; ++k)
+        {
+            delete ptr[k];
+        }
     }
     //calc average height for all the tallest trees in the forests.
     average1=average1/nrOfTests + (int)average1 % nrOfTests;

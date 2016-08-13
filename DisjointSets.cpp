@@ -34,8 +34,6 @@ int DisjointSets::find(int x) const
         return x;
     else
         return find( this->set[ x ] );
-
-
 }
 //check all sets at every index and returns longest path, works with Rank system.
 //fixcode: 0x44
@@ -73,6 +71,7 @@ int DisjointSets::maxHeight() const
 
     } while (indexWalker < this->size);
     return results;
+
     //obsolete code below...
     /*if(this->unionSetsRankUsed)
     {
@@ -165,7 +164,7 @@ int DisjointSets::findCompress(int x)
     else
         return this->set[ x ] = findCompress( this->set[ x ] );
     //x some node.
-    /*int holder = x; //reminds me of the pointer :-)
+    /* obsolete below!!
     int numberOfRedirects=0;
     if(this->unionSetsRankUsed)
     {
