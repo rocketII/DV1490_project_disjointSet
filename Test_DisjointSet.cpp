@@ -82,7 +82,7 @@ using namespace std;
 int main()
 {
     /*  find = S findCompress=D  Union=F UnionRank=G
-     *  testing1(sets), ptr[1](sets),testing3(sets),ptr[3](sets);
+     *  ptr[0](sets), ptr[1](sets),ptr[2](sets),ptr[3](sets);
      *   F,S               F,D            G,S           G,D
      *
      */
