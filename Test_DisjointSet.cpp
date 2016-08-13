@@ -165,6 +165,7 @@ int main()
     average2=average2/nrOfTests + (int)average2 % nrOfTests;
     average3=average3/nrOfTests + (int)average3 % nrOfTests;
     average4=average4/nrOfTests + (int)average4 % nrOfTests;
+    cout<<"DV1490: project. Showing average tree height using 5000 unions for each test of 100.\n\b\a";
     cout<<"\n==========================&\\*Results*/&======================\n";
     cout<<"       ||  Find utan Komprimering || Find med komprimering ||";
     cout<<"\n-------------------------------------------------------------";
