@@ -92,7 +92,6 @@ int main()
     float average1=0,average2=0, average3=0, average4=0;
     int randomRootCandidateHolderA, randomRootCandidateHolderB;
     std::srand((unsigned)std::time(NULL));
-    //DisjointSets testing1(sets), ptr[1](sets),testing3(sets),ptr[3](sets);
     DisjointSets* ptr[4];
 
     //start testing.
