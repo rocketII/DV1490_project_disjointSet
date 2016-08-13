@@ -158,6 +158,7 @@ int main()
         for (int k = 0; k < 3 ; ++k)
         {
             delete ptr[k];
+            ptr[k]= nullptr;
         }
     }
     //calc average height for all the tallest trees in the forests.
