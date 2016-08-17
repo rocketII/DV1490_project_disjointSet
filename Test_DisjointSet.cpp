@@ -63,7 +63,7 @@ fixcode    fixed      details
 
 0x33      1       Kontrollera FindComlpress.
 
-0x44      0       maxheight verkar onödigt omständiga. För att bestämma max-höjden för de träd som representerar
+0x44      1       maxheight verkar onödigt omständiga. För att bestämma max-höjden för de träd som representerar
                   mängderna ska du för varje nod bestämma dess djup (dvs hur långt från roten den är) och den nod
                   som har högst djup motsvarar det träd som är högst. Du ska inte använda de uppskattade
                   höjderna/rankerna utan vekrligen kontrollera djupen för noderna.
@@ -93,6 +93,10 @@ int main()
     int randomRootCandidateHolderA, randomRootCandidateHolderB;
     std::srand((unsigned)std::time(NULL));
     DisjointSets* ptr[4];
+    time_t startTime=0;
+    time_t endTime=0;
+    startTime=clock();
+
 
     //start testing.
     for (int j = 0; j < nrOfTests; ++j) //loop test 100 times
@@ -101,7 +105,14 @@ int main()
         {
             ptr[k] = new DisjointSets(sets);
         }
-        for (int i = 0; i < (5000) ; ++i) // loop set generator 50 times
+        /*TODO:
+         * Tester med många unioner tar lite tid. Dock kan det inte utföras 10000 tester på 10000 disjunkta mängder ;-).
+
+          Du kan maila mig dina resultat. Försök kontrollera vad som möjligen kan "ställa till det" genom att utesluta
+          olika delar i koden för stort antal unioner (ex-vis kompression, rank och höjdberäkning). Kanske är det någon
+          algoritmmässigt som är boven :-).
+         * */
+        for (int i = 0; i < (9999) ; ++i) // loop set generator 50 times
         {
 
             //random number in range makes root kandidates
@@ -159,13 +170,17 @@ int main()
             delete ptr[k];
             ptr[k]= nullptr;
         }
+        endTime = clock();
+        cout <<"Algorithm time:"<< ((double)endTime/CLOCKS_PER_SEC)<<" Seconds"<<endl;
     }
     //calc average height for all the tallest trees in the forests.
     average1=average1/nrOfTests + (int)average1 % nrOfTests;
     average2=average2/nrOfTests + (int)average2 % nrOfTests;
     average3=average3/nrOfTests + (int)average3 % nrOfTests;
     average4=average4/nrOfTests + (int)average4 % nrOfTests;
-    cout<<"DV1490: project. Showing average tree height using 5000 unions for each test of 100.\n\b\a";
+    endTime = clock();
+    cout <<"Algorithm time:"<< ((double)endTime/CLOCKS_PER_SEC)<<" Seconds";
+    cout<<"\n DV1490: project. Showing average tree height using 5000 unions for each test of 100.\n\b\a";
     cout<<"\n==========================&\\*Results*/&======================\n";
     cout<<"       ||  Find utan Komprimering || Find med komprimering ||";
     cout<<"\n-------------------------------------------------------------";

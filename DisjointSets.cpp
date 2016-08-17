@@ -72,49 +72,7 @@ int DisjointSets::maxHeight() const
     } while (indexWalker < this->size);
     return results;
 
-    //obsolete code below...
-    /*if(this->unionSetsRankUsed)
-    {
-        do
-        {
-            height = 0;
-            while (this->set[pathWalker] > -1)
-            {
-                pathWalker = this->set[pathWalker];
-            }
-            //if root less than -1 we encode rank to height
-            if (this->set[pathWalker] < -1)
-            {
-                if(results < (abs(this->set[pathWalker]) - 1) )
-                    results = (abs(this->set[pathWalker]) - 1);
-            }
-            indexWalker++;
-            pathWalker = iteration;
-            iteration++;
 
-        } while (indexWalker < this->size);
-    }
-    else
-    {
-        do
-        {
-            height = 0;
-            while (this->set[pathWalker] != -1)
-            {
-                pathWalker = this->set[pathWalker];
-                height++;
-            }
-            //store only highest path
-            if (results < height)
-            {
-                results = height;
-            }
-            indexWalker++;
-            pathWalker = iteration;
-            iteration++;
-
-        } while (indexWalker < this->size);
-    }*/
 
 
 }
@@ -163,60 +121,7 @@ int DisjointSets::findCompress(int x)
         return x;
     else
         return this->set[ x ] = findCompress( this->set[ x ] );
-    //x some node.
-    /* obsolete below!!
-    int numberOfRedirects=0;
-    if(this->unionSetsRankUsed)
-    {
-        int tmp = holder;
 
-        //find a root with some negative integer
-        while (this->set[holder] > -1)
-        {
-            holder = this->set[holder];
-        }
-
-        //compress
-        int BranchWalker= tmp;
-
-        while (this->set[BranchWalker] > -1)
-        {
-            if( this->set[BranchWalker] != holder)
-            {
-                BranchWalker = this->set[tmp];
-                this->set[tmp] = holder;
-                numberOfRedirects++;
-                tmp = BranchWalker;
-            }
-            else
-                BranchWalker = this->set[tmp];//in the node before root we don't do any changes
-        }
-        //make root rank correct for each level decrement.
-        for (int t = 0; t < numberOfRedirects;t++)
-        {
-            this->set[holder]++;
-        }
-        return holder;
-    }
-    else
-    {
-        //find root
-        // trash data: (this->set[holder] != -1 && this->set[holder] >0)
-        while (this->set[holder] > -1)
-        {
-            holder = this->set[holder];
-        }
-        //compress
-        int BranchWalker = x;
-        int tmp = BranchWalker;
-        while (this->set[BranchWalker] > -1)
-        {
-            BranchWalker = this->set[tmp];
-            this->set[tmp] = holder;
-            tmp = BranchWalker;
-        }
-        return holder;
-    }*/
 
 }
 //CopyConstructor
@@ -245,5 +150,5 @@ DisjointSets& DisjointSets::operator=(const DisjointSets &orig)
     {
         this->set[i] = orig.set[i];
     }
-    return *this;//return reference
+    return *this;//return reference to object
 }
